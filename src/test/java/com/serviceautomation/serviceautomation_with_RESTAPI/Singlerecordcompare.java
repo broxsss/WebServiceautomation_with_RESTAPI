@@ -20,7 +20,7 @@ public class Singlerecordcompare {
 	public static final Logger log = Logger.getLogger(Singlerecordcompare.class.getName());
 	DBConection db = new DBConection();
 	
-	@Test(timeOut = 10000)
+	@Test
 	public void singleRecordValidation() throws IOException, SQLException
 	{   /*SQL*/
 		int sqlID = 0;
@@ -28,7 +28,7 @@ public class Singlerecordcompare {
 		String sqlcountrycode = null;
 		String sqlDistrict=null;
 		int sqlpopulation = 0;
-		String Query="Select * from city where Population='186800'";
+		String Query="Select * from city where Population='135621'";
 		ResultSet rs = db.mysql(Query);
 		ResultSetMetaData rsmd = rs.getMetaData();
 		for(int i=1 ;i<=rsmd.getColumnCount();i++)
@@ -44,7 +44,7 @@ public class Singlerecordcompare {
 			sqlcountrycode = rs.getString("CountryCode");
 			sqlDistrict=rs.getString("District");
 			sqlpopulation=rs.getInt("population");
-			System.out.println(sqlID+"  "+sqlName+"  "+  sqlcountrycode+"  "+  sqlDistrict+"  "+sqlpopulation  ); 
+			System.out.println("Mysql record : "+sqlID+"  "+sqlName+"  "+  sqlcountrycode+"  "+  sqlDistrict+"  "+sqlpopulation  ); 
 			
 		}
 		   //Closing the ResultSet object
@@ -60,7 +60,7 @@ public class Singlerecordcompare {
             {
                 e.printStackTrace();
             }
-		/*******************************************MongoDb********************************************/
+		/*******************************************MongoDb***************************************************/
             BasicDBObject query = new BasicDBObject();
             query.put("Population", 135621);
             int mdbID = 0;
@@ -78,9 +78,9 @@ public class Singlerecordcompare {
                     mdbcountrycode=document.getString("CountryCode");
                     mdbDistrict=document.getString("District");
                     mdbpopulation=document.getInt("Population");
-              System.out.println(mdbID+" "+mdbName+" "+mdbcountrycode+" "+mdbDistrict+" "+mdbpopulation);      
-                
-                }
+              System.out.println("MongoDB record :"+mdbID+" "+mdbName+" "+mdbcountrycode+" "+mdbDistrict+" "+mdbpopulation);      
+                 }
+            cursor.close();
             } 
             catch(MongoException e) {
             System.out.println(e.getMessage());
@@ -102,11 +102,10 @@ public class Singlerecordcompare {
 	    System.out.println("json_hits :"+json_elehits);
 	    int totalHitsize = elasticJsonResponse.get("hits").getAsJsonObject().get("total").getAsInt();
 		System.out.println("totalHitsize:"+totalHitsize);
-       
-        JsonArray ES_hits = elasticJsonResponse.get("hits").getAsJsonObject().get("hits").getAsJsonArray();
+		JsonArray ES_hits = elasticJsonResponse.get("hits").getAsJsonObject().get("hits").getAsJsonArray();
         if(totalHitsize==0)
         {
-        	
+        	System.out.println("Record not processed...in ES");
         }
         else
         {
@@ -122,7 +121,7 @@ public class Singlerecordcompare {
         			EScountrycode = json_ESHits.get("_source").getAsJsonObject().get("CountryCode").getAsString();
         			ESDistrict=json_ESHits.get("_source").getAsJsonObject().get("District").getAsString();
         			ESpopulation = json_ESHits.get("_source").getAsJsonObject().get("Population").getAsInt();
-        		 System.out.println(ESID+"  "+ESName+"  "+EScountrycode+"  "+ESDistrict+"  "+ESpopulation);
+        		 System.out.println("ElasticSearch record :"+ESID+"  "+ESName+"  "+EScountrycode+"  "+ESDistrict+"  "+ESpopulation);
         		 }
         		 catch(Exception e)
         		 {
@@ -133,7 +132,7 @@ public class Singlerecordcompare {
         	
         }
         
-        /******************************compare Mysql data to Mongo**********************************/
+        /***********************************compare Mysql data to Mongo*********************************************/
         if(sqlID!=0 && sqlName!=null && sqlcountrycode!=null  && sqlDistrict!=null  && sqlpopulation!=0   
         		&& sqlID==mdbID && sqlName.equals(mdbName) && sqlcountrycode.equals(mdbcountrycode)  &&
 		    sqlDistrict.equals(mdbDistrict)  &&  sqlpopulation==mdbpopulation)

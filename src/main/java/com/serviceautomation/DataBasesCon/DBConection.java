@@ -18,9 +18,7 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 
 import com.mongodb.BasicDBObject;
@@ -31,7 +29,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.MongoException;
 import com.serviceautomation.properties.Testcasesproperties;
-import com.serviceautomation.reports.Report;
+
 
 public class DBConection {
 	private final static Logger Log = LogManager.getLogger(DBConection.class.getName());
@@ -39,16 +37,16 @@ public class DBConection {
 	public ResultSet  mysql(String Query) {	
 		ResultSet rs = null;
 		try{
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			String hostname=prop.getData("HostUrl");
-			String port = prop.getData("Port");
+			Class.forName("com.mysql.jdbc.Driver");
+			String hostname=prop.getData("HostUrlsql");
+			String port = prop.getData("Portsql");
 			String database = prop.getData("Database");
 			String username=prop.getData("Username");
 			String password = prop.getData("Password");
-			
 			Connection con = DriverManager.getConnection("jdbc:mysql://"+hostname+":"+port+"/"+database,username,password);
 			Statement smt = con.createStatement();
             rs = smt.executeQuery(Query);
+           
 		}
 		catch(Exception e)
 		{
@@ -99,6 +97,9 @@ public class DBConection {
 	    	String strclustername=prop.getData("Clustername");
 	    	String strCollectionName=prop.getData("Indexname");
 	    	String strType=prop.getData("Typename");
+	    	String strhostname=prop.getData("Hostname");
+	    	int strport=Integer.parseInt(prop.getData("PortES"));
+	    	 
 	    	//String query="{\"query\":{\"bool\":{\"must\":[{\"match_all\":{}}],\"must_not\":[],\"should\":[]}},\"from\":0,\"size\":10,\"sort\":[],\"aggs\":{}}";
 	    	Settings settings = Settings.builder()
 	    	    .put("cluster.name", strclustername)
@@ -106,7 +107,7 @@ public class DBConection {
 				.build();
 	    	
 	    	
-				TransportClient client = new PreBuiltTransportClient(settings).addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("localhost"), 9300));
+				TransportClient client = new PreBuiltTransportClient(settings).addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(strhostname), strport));
 				  
 				//searchResponse = client.prepareSearch(strCollectionName).setTypes(strType).setFrom(0).setSize(10000).get();
 				
