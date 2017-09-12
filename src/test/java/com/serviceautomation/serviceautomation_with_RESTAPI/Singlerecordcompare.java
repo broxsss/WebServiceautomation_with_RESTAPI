@@ -170,6 +170,42 @@ public class Singlerecordcompare {
         		System.out.println("Failed	::::Different error");
         	}
         }
-        
+        /******************************compare Mysql data to ES**********************************/
+        if(sqlID!=0 && sqlName!=null && sqlcountrycode!=null  && sqlDistrict!=null  && sqlpopulation!=0   
+        		&& sqlID==ESID && sqlName.equals(ESName) && sqlcountrycode.equals(EScountrycode)  &&
+		    sqlDistrict.equals(ESDistrict)  &&  sqlpopulation==ESpopulation)
+        {
+        	System.out.println();
+        	System.out.println("Passed	::::Records in MySQL is Equal to ElasticSearch ");
+        	System.out.println();
+        }
+        else
+        {
+        	System.out.println("Failed	::::Record in MySQL is Equal Not to ElasticSearch ");
+        	if(sqlID!=ESID)
+        	{
+        		System.out.println("Failed	::::ID is not equal:- SQl ID:"+sqlID+"  ESID :"+ESID);
+        	}
+        	if(!sqlName.equals(ESName))
+        	{
+        		System.out.println("Failed	::::Name is not equal:- SQl Name:"+sqlName+"  ESName :"+ESName);
+        	}
+        	if(!sqlcountrycode.equals(EScountrycode))
+        	{
+        		System.out.println("Failed	::::countrycode is not equal:- SQl countrycode:"+sqlcountrycode+"  EScountrycode :"+EScountrycode);	
+        	}
+        	else if(!sqlDistrict.equals(ESDistrict))
+        	{
+        		System.out.println("Failed	::::District is not equal:- SQl District:"+sqlDistrict+"  ESDistrict :"+ESDistrict);	
+        	}
+        	if(sqlpopulation!=ESpopulation)
+        	{
+        		System.out.println("Failed	::::population is not equal:- SQl population:"+sqlpopulation+"  ESpopulation :"+ESpopulation);	
+        	}
+        	else
+        	{
+        		System.out.println("Failed	::::Different error");
+        	}
+        } 
 	}
 }
