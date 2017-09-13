@@ -88,6 +88,24 @@ public class DBConection {
 	        }
 	        return cursor;
 	    }
+	    
+	    public int MongoDBQueryCount() {
+	    	 int cursor =0;
+	    	try {
+	            
+	            //MongoClient client = new MongoClient("mongodb://localhost/27017");
+	            MongoClient client = new MongoClient(new MongoClientURI("mongodb://localhost:27017"));
+	            DB database = client.getDB("world");
+	            DBCollection collection = database.getCollection("city");
+	            cursor = collection.find().count();
+	            
+	        } catch (MongoException e) {
+	            e.printStackTrace();
+	            System.out.println(e.getMessage());
+	        }
+	        return cursor;
+	    }
+	    
 	    public SearchResponse Elasticsearch() throws IOException 
 	    {
 	    	
@@ -99,7 +117,6 @@ public class DBConection {
 	    	String strType=prop.getData("Typename");
 	    	String strhostname=prop.getData("Hostname");
 	    	int strport=Integer.parseInt(prop.getData("PortES"));
-	    	 
 	    	//String query="{\"query\":{\"bool\":{\"must\":[{\"match_all\":{}}],\"must_not\":[],\"should\":[]}},\"from\":0,\"size\":10,\"sort\":[],\"aggs\":{}}";
 	    	Settings settings = Settings.builder()
 	    	    .put("cluster.name", strclustername)

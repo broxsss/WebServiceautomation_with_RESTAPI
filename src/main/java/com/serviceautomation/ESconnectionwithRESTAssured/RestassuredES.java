@@ -42,4 +42,33 @@ public class RestassuredES {
 	}
    return response.asString();
 	}
+    
+    @Test
+	public String restcount() throws IOException
+	{
+    	Response response=null;
+	
+	String strElasticSearchHostName = "http://"+prop.getData("HostUrl");
+	String strElasticSearchPort = prop.getData("Port");
+	String strcontractotmIndexName=prop.getData("Indexname");
+    String strcontracttypename =prop.getData("Typename");
+    
+   try{
+     response = given()
+            .when().contentType(ContentType.JSON).get(strElasticSearchHostName+":"+strElasticSearchPort
+		            +"/"+strcontractotmIndexName+"/"+strcontracttypename+"/_search");
+    
+//    Response response = given().when().contentType(ContentType.JSON)
+//    		.get(strElasticSearchHostName+":"+strElasticSearchPort
+//		            +"/"+strcontractotmIndexName+"/"+strcontracttypename+"/_search");
+	System.out.println("Response  :"+response.asString());
+	
+	}      
+	catch(Exception e)
+	{
+	e.printStackTrace();
+	System.out.println(e.getMessage());
+	}
+   return response.asString();
+	}
 }
