@@ -47,6 +47,8 @@ About project:
      In this test cases i have used Elastic search java Api to get record from ES. It will fetch REcord in json then we have to parse        json and get record.
      b.)Singlerecordcompare_RESTAPI_RestAssured.java
        In this program all is same except i have used restassured library package to get record from ElasticSearch and then compare it          with Mysql record and mongoDb record.So basically we are hitting restapi when ever we query in Elastic Search.
+     C.)Countvalidation.java
+       It gives you count of record in sql for table city and count from mongo collection world and count of Elastic search of type            world.
                
     
     
