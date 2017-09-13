@@ -45,11 +45,10 @@ public class CountValidation {
 		int EScount =0;
 		try {
 			String response = rest.restcount();
-			System.out.println(response);
 			JsonParser parse = new JsonParser();
 			JsonObject es_response = parse.parse(response).getAsJsonObject();
 			JsonElement es_element = es_response.get("hits").getAsJsonObject().get("total");
-			 EScount = es_element.getAsInt();
+			EScount = es_element.getAsInt();
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
