@@ -156,7 +156,7 @@ public class Singlerecordcompare {
         	{
         		System.out.println("Failed	::::countrycode is not equal:- SQl countrycode:"+sqlcountrycode+"  Mongocountrycode :"+mdbcountrycode);	
         	}
-        	else if(!sqlDistrict.equals(mdbDistrict))
+        	if(!sqlDistrict.equals(mdbDistrict))
         	{
         		System.out.println("Failed	::::District is not equal:- SQl District:"+sqlDistrict+"  MongoDistrict :"+mdbDistrict);	
         	}
@@ -193,7 +193,7 @@ public class Singlerecordcompare {
         	{
         		System.out.println("Failed	::::countrycode is not equal:- SQl countrycode:"+sqlcountrycode+"  EScountrycode :"+EScountrycode);	
         	}
-        	else if(!sqlDistrict.equals(ESDistrict))
+        	if(!sqlDistrict.equals(ESDistrict))
         	{
         		System.out.println("Failed	::::District is not equal:- SQl District:"+sqlDistrict+"  ESDistrict :"+ESDistrict);	
         	}

@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-
 import org.testng.annotations.Test;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -165,7 +163,7 @@ public class Singlerecordcompare_RESTAPI_RestAssured {
 			{
 				System.out.println("Failed	::::countrycode is not equal:- SQl countrycode:"+sqlcountrycode+"  Mongocountrycode :"+mdbcountrycode);	
 			}
-			else if(!sqlDistrict.equals(mdbDistrict))
+		 if(!sqlDistrict.equals(mdbDistrict))
 			{
 				System.out.println("Failed	::::District is not equal:- SQl District:"+sqlDistrict+"  MongoDistrict :"+mdbDistrict);	
 			}
@@ -202,7 +200,7 @@ public class Singlerecordcompare_RESTAPI_RestAssured {
 			{
 				System.out.println("Failed	::::countrycode is not equal:- SQl countrycode:"+sqlcountrycode+"  EScountrycode :"+EScountrycode);	
 			}
-			else if(!sqlDistrict.equals(ESDistrict))
+			if(!sqlDistrict.equals(ESDistrict))
 			{
 				System.out.println("Failed	::::District is not equal:- SQl District:"+sqlDistrict+"  ESDistrict :"+ESDistrict);	
 			}
