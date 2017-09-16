@@ -1,4 +1,4 @@
-# serviceautomation_with_RESTAPI
+# WEB-serviceautomation_with_RESTAPI
 
 Project which shows how to verify database records are same in MySQL ,MongoDb and ElasticSearch(5.5)
 
