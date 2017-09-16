@@ -45,7 +45,7 @@ public class Singlerecordcompare {
 			sqlDistrict=rs.getString("District");
 			sqlpopulation=rs.getInt("population");
 			System.out.println("Mysql record : "+sqlID+"  "+sqlName+"  "+  sqlcountrycode+"  "+  sqlDistrict+"  "+sqlpopulation  ); 
-			
+			log.info("Sql record is passed");
 		}
 		   //Closing the ResultSet object
             try
